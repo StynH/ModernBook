@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+
+.font-sans { font-family: "Inter", system-ui, sans-serif; }
+.font-serif { font-family: "Crimson Pro", Georgia, serif; }
+
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+
+@media print {
+  @page { margin: 0; size: auto; }
+  body { background: white; -webkit-print-color-adjust: exact; }
+  .w-72, .w-20, header, .fixed, .h-screen > .fixed { display: none !important; }
+  .flex-1 { height: auto !important; overflow: visible !important; }
+  .max-w-\[1050px\] { width: 100% !important; max-width: none !important; height: auto !important; overflow: visible !important; box-shadow: none !important; ring: 0 !important; }
+
+  .backdrop-blur-md { backdrop-filter: none !important; background: white !important; border: 2px solid #e2e8f0 !important; }
+  .bg-white\/95 { background: white !important; opacity: 1 !important; }
+  .shadow-xl, .shadow-lg, .shadow-md { box-shadow: none !important; }
+
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  .col-span-full { column-span: all; }
+  .break-inside-avoid { page-break-inside: avoid; }
+}
+

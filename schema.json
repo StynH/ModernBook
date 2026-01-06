@@ -1,0 +1,499 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Pathfinder 2e Book Builder Schema",
+  "type": "object",
+  "required": ["title", "chapters"],
+  "properties": {
+    "title": { "type": "string", "description": "The title of the book" },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "content"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                { "$ref": "#/definitions/heading" },
+                { "$ref": "#/definitions/paragraph" },
+                { "$ref": "#/definitions/intro" },
+                { "$ref": "#/definitions/creature" },
+                { "$ref": "#/definitions/spell" },
+                { "$ref": "#/definitions/feat" },
+                { "$ref": "#/definitions/item" },
+                { "$ref": "#/definitions/deity" },
+                { "$ref": "#/definitions/inventory" },
+                { "$ref": "#/definitions/affliction" },
+                { "$ref": "#/definitions/hazard" },
+                { "$ref": "#/definitions/xp" },
+                { "$ref": "#/definitions/area" },
+                { "$ref": "#/definitions/image" },
+                { "$ref": "#/definitions/box" },
+                { "$ref": "#/definitions/sidebar" },
+                { "$ref": "#/definitions/table" }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "heading": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "heading" },
+        "text": { "type": "string" }
+      },
+      "required": ["type", "text"]
+    },
+    "paragraph": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "paragraph" },
+        "text": { "type": "string" }
+      },
+      "required": ["type", "text"]
+    },
+    "intro": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "intro" },
+        "text": { "type": "string" }
+      },
+      "required": ["type", "text"]
+    },
+    "creature": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "creature" },
+        "data": {
+          "type": "object",
+          "required": ["name", "level", "defense", "abilities"],
+          "properties": {
+            "name": { "type": "string" },
+            "level": { "type": "integer" },
+            "traits": { "type": "array", "items": { "type": "string" } },
+            "rarity": { "type": "string", "enum": ["Common", "Uncommon", "Rare", "Unique"] },
+            "size": { "type": "string", "enum": ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"] },
+            "alignment": { "type": "string", "enum": ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"] },
+            "perception": { "type": "integer" },
+            "senses": { "type": "string" },
+            "languages": { "type": "array", "items": { "type": "string" } },
+            "skills": { "type": "object", "additionalProperties": { "type": "integer" } },
+            "items": { "type": "array", "items": { "type": "string" } },
+            "abilities": {
+              "type": "object",
+              "properties": {
+                "str": { "type": "integer" },
+                "dex": { "type": "integer" },
+                "con": { "type": "integer" },
+                "int": { "type": "integer" },
+                "wis": { "type": "integer" },
+                "cha": { "type": "integer" }
+              }
+            },
+            "defense": {
+              "type": "object",
+              "required": ["ac", "hp", "fort", "ref", "will"],
+              "properties": {
+                "ac": { "type": "integer" },
+                "hardness": { "type": "integer" },
+                "hp": { "type": "integer" },
+                "fort": { "type": "integer" },
+                "ref": { "type": "integer" },
+                "will": { "type": "integer" },
+                "regeneration": { "type": "string" },
+                "immunities": { "type": "array", "items": { "type": "string" } },
+                "weaknesses": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": { "type": { "type": "string", "enum": ["Bludgeoning", "Piercing", "Slashing", "Acid", "Cold", "Electricity", "Fire", "Sonic", "Negative", "Positive", "Force", "Mental", "Poison", "Chaotic", "Evil", "Good", "Lawful"] }, "value": { "type": "integer" } }
+                  }
+                },
+                "resistances": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": { "type": { "type": "string", "enum": ["Bludgeoning", "Piercing", "Slashing", "Acid", "Cold", "Electricity", "Fire", "Sonic", "Negative", "Positive", "Force", "Mental", "Poison", "Chaotic", "Evil", "Good", "Lawful"] }, "value": { "type": "integer" } }
+                  }
+                }
+              }
+            },
+            "speed": { "type": "string" },
+            "strikes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "actions": { "type": "string", "enum": ["1", "2", "3", "one", "two", "three", "r", "reaction", "f", "free"] },
+                  "bonus": { "type": "integer" },
+                  "traits": { "type": "array", "items": { "type": "string" } },
+                  "damage": { "type": "string" }
+                }
+              }
+            },
+            "spellcasting": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "dc": { "type": "integer" },
+                  "attack": { "type": "integer" },
+                  "slots": {
+                    "type": "object",
+                    "additionalProperties": { "type": "array", "items": { "type": "string" } }
+                  }
+                }
+              }
+            },
+            "specials": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "actions": { "type": "string", "enum": ["1", "2", "3", "one", "two", "three", "r", "reaction", "f", "free"] },
+                  "traits": { "type": "array", "items": { "type": "string" } },
+                  "text": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["type", "data"]
+    },
+    "spell": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "spell" },
+        "data": {
+          "type": "object",
+          "required": ["name", "level", "description"],
+          "properties": {
+            "name": { "type": "string" },
+            "level": { "type": "integer" },
+            "type": { "type": "string", "enum": ["Spell", "Ritual", "Cantrip", "Focus"] },
+            "traits": { "type": "array", "items": { "type": "string" } },
+            "traditions": { "type": "array", "items": { "type": "string" } },
+            "cast": {
+              "type": "object",
+              "properties": {
+                "actions": { "type": "string", "enum": ["1", "2", "3", "one", "two", "three", "r", "reaction", "f", "free"] },
+                "components": { "type": "array", "items": { "type": "string", "enum": ["V", "S", "M", "F"] } }
+              }
+            },
+            "cost": { "type": "string" },
+            "range": { "type": "string" },
+            "area": { "type": "string" },
+            "target": { "type": "string" },
+            "duration": { "type": "string" },
+            "save": { "type": "string", "enum": ["Fortitude", "Reflex", "Will"] },
+            "primary_check": { "type": "string" },
+            "secondary_check": { "type": "string" },
+            "secondary_casters": { "type": "string" },
+            "description": { "type": "string" },
+            "heightened": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "trigger": { "type": "string" },
+                  "text": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["type", "data"]
+    },
+    "feat": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "feat" },
+        "data": {
+          "type": "object",
+          "required": ["name", "level", "description"],
+          "properties": {
+            "name": { "type": "string" },
+            "level": { "type": "integer" },
+            "traits": { "type": "array", "items": { "type": "string" } },
+            "actions": { "type": "string", "enum": ["1", "2", "3", "one", "two", "three", "r", "reaction", "f", "free"] },
+            "prerequisites": { "type": "string" },
+            "frequency": { "type": "string" },
+            "trigger": { "type": "string" },
+            "requirements": { "type": "string" },
+            "cost": { "type": "string" },
+            "description": { "type": "string" }
+          }
+        }
+      },
+      "required": ["type", "data"]
+    },
+    "item": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "item" },
+        "data": {
+          "type": "object",
+          "required": ["name", "level"],
+          "properties": {
+            "name": { "type": "string" },
+            "level": { "type": "integer" },
+            "traits": { "type": "array", "items": { "type": "string" } },
+            "description": { "type": "string" },
+            "general": {
+              "type": "object",
+              "properties": {
+                "price": { "type": "string" },
+                "bulk": { "type": "string" },
+                "usage": { "type": "string" }
+              }
+            },
+            "activation": {
+              "type": "object",
+              "properties": {
+                "actions": { "type": "string" },
+                "frequency": { "type": "string" },
+                "trigger": { "type": "string" },
+                "requirements": { "type": "string" }
+              }
+            },
+            "weapon": {
+              "type": "object",
+              "properties": {
+                "damage": { "type": "string" },
+                "hands": { "type": "string", "enum": ["1", "1+", "2"] },
+                "range": { "type": "string" },
+                "reload": { "type": "string" },
+                "category": { "type": "string", "enum": ["Unarmed", "Simple", "Martial", "Advanced"] },
+                "group": { "type": "string", "enum": ["Axe", "Bow", "Brawling", "Club", "Dart", "Flail", "Hammer", "Knife", "Pick", "Polearm", "Shield", "Sling", "Spear", "Sword", "Bomb"] }
+              }
+            },
+            "armor": {
+              "type": "object",
+              "properties": {
+                "ac_bonus": { "type": "string" },
+                "dex_cap": { "type": "string" },
+                "check_penalty": { "type": "string" },
+                "speed_penalty": { "type": "string" },
+                "strength": { "type": "string" },
+                "category": { "type": "string", "enum": ["Unarmored", "Light", "Medium", "Heavy"] },
+                "group": { "type": "string", "enum": ["Composite", "Chain", "Leather", "Plate", "Cloth", "Wood"] }
+              }
+            },
+            "shield": {
+              "type": "object",
+              "properties": {
+                "hardness": { "type": "string" },
+                "hp": { "type": "string" },
+                "bt": { "type": "string" }
+              }
+            },
+            "vehicle": {
+              "type": "object",
+              "properties": {
+                "speed": { "type": "string" },
+                "crew": { "type": "string" },
+                "passengers": { "type": "string" },
+                "piloting_check": { "type": "string" },
+                "collision_damage": { "type": "string" },
+                "ac": { "type": "string" },
+                "hardness": { "type": "string" },
+                "hp": { "type": "string" },
+                "bt": { "type": "string" }
+              }
+            },
+            "affliction": {
+              "type": "object",
+              "properties": {
+                "onset": { "type": "string" },
+                "saving_throw": { "type": "string" },
+                "duration": { "type": "string" },
+                "stages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "stage": { "type": "integer" },
+                      "text": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            },
+            "craft_requirements": { "type": "string" }
+          }
+        }
+      },
+      "required": ["type", "data"]
+    },
+    "deity": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "deity" },
+        "data": {
+          "type": "object",
+          "required": ["name", "alignment"],
+          "properties": {
+            "name": { "type": "string" },
+            "title": { "type": "string" },
+            "alignment": { "type": "string", "enum": ["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"] },
+            "edicts": { "type": "array", "items": { "type": "string" } },
+            "anathema": { "type": "array", "items": { "type": "string" } },
+            "font": { "type": "array", "items": { "type": "string" } },
+            "skill": { "type": "string" },
+            "weapon": { "type": "string" },
+            "domains": { "type": "array", "items": { "type": "string" } },
+            "cleric_spells": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      },
+      "required": ["type", "data"]
+    },
+    "inventory": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "inventory" },
+        "title": { "type": "string" },
+        "currency": { "type": "string" },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "price", "bulk"],
+            "properties": {
+              "name": { "type": "string" },
+              "price": { "type": "string" },
+              "bulk": { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["type", "items"]
+    },
+    "affliction": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "affliction" },
+        "data": {
+          "type": "object",
+          "required": ["name", "level", "stages"],
+          "properties": {
+            "name": { "type": "string" },
+            "level": { "type": "integer" },
+            "traits": { "type": "array", "items": { "type": "string" } },
+            "onset": { "type": "string" },
+            "save": { "type": "string" },
+            "duration": { "type": "string" },
+            "stages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "stage": { "type": "integer" },
+                  "text": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["type", "data"]
+    },
+    "hazard": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "hazard" },
+        "data": {
+          "type": "object",
+          "required": ["name", "level", "stealth"],
+          "properties": {
+            "name": { "type": "string" },
+            "level": { "type": "integer" },
+            "traits": { "type": "array", "items": { "type": "string" } },
+            "stealth": { "type": "string" },
+            "disable": { "type": "string" },
+            "description": { "type": "string" },
+            "ac": { "type": "integer" },
+            "fort": { "type": "integer" },
+            "ref": { "type": "integer" },
+            "hp": { "type": "integer" },
+            "hardness": { "type": "integer" },
+            "routine": { "type": "string" },
+            "reset": { "type": "string" }
+          }
+        }
+      },
+      "required": ["type", "data"]
+    },
+    "xp": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "xp" },
+        "amount": { "type": "integer" },
+        "text": { "type": "string" }
+      },
+      "required": ["type", "amount", "text"]
+    },
+    "area": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "area" },
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "severity": { "type": "string", "enum": ["Low", "Moderate", "Severe", "Extreme"] }
+      },
+      "required": ["type", "id", "name"]
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "image" },
+        "src": { "type": "string" },
+        "caption": { "type": "string" },
+        "fullWidth": { "type": "boolean" }
+      },
+      "required": ["type", "src"]
+    },
+    "box": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "box" },
+        "title": { "type": "string" },
+        "text": { "type": "string" }
+      },
+      "required": ["type", "text"]
+    },
+    "sidebar": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "sidebar" },
+        "title": { "type": "string" },
+        "text": { "type": "string" }
+      },
+      "required": ["type", "title", "text"]
+    },
+    "table": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "table" },
+        "headers": { "type": "array", "items": { "type": "string" } },
+        "rows": {
+          "type": "array",
+          "items": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "required": ["type", "headers", "rows"]
+    }
+  }
+}
+
