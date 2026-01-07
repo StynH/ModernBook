@@ -12,4 +12,5 @@ export { default as ImageBlock } from "./ImageBlock";
 export { default as SidebarBlock } from "./SidebarBlock";
 export { default as ReadAloudBox } from "./ReadAloudBox";
 export { default as TableBlock } from "./TableBlock";
-
+export { default as CheckBlock } from "./CheckBlock";
+export { default as ListBlock } from "./ListBlock";

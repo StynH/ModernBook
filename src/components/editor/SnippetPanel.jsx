@@ -1,4 +1,4 @@
-import { AlertTriangle, Flame, Grid, Hexagon, MessageSquare, Package, Scroll, ShoppingBag, Skull, Star, Sun, Zap } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Flame, Grid, Hexagon, List, MessageSquare, Package, Scroll, ShoppingBag, Skull, Star, Sun, Zap } from "lucide-react";
 import SnippetButton from "./SnippetButton";
 
 const SnippetPanel = ({ onInsert }) => {
@@ -11,6 +11,11 @@ const SnippetPanel = ({ onInsert }) => {
       <SnippetButton icon={Flame} label="Spell" onClick={handleInsert({ type: "spell", data: { name: "Fireball", level: 3, traits: ["Evocation", "Fire"], traditions: ["Arcane"], cast: { actions: "2", components: ["V", "S"] }, description: "Boom." } })} />
       <SnippetButton icon={Package} label="Item" onClick={handleInsert({ type: "item", data: { name: "Magic Sword", level: 4, general: { price: "100 gp" }, description: "Sharp." } })} />
       <SnippetButton icon={Sun} label="Deity" onClick={handleInsert({ type: "deity", data: { name: "Sarenrae", alignment: "NG" } })} />
+
+      <div className="w-10 h-px bg-white/10 my-2"></div>
+
+      <SnippetButton icon={CheckCircle2} label="Check" onClick={handleInsert({ type: "check", skill: "Athletics", dc: 20, text: "To climb the wall.", results: { critical_success: "You climb up fast.", success: "You climb up.", failure: "You fall.", critical_failure: "You fall hard." } })} />
+      <SnippetButton icon={List} label="List" onClick={handleInsert({ type: "list", style: "unordered", items: ["Item 1", "Item 2"] })} />
 
       <div className="w-10 h-px bg-white/10 my-2"></div>
 
@@ -29,4 +34,3 @@ const SnippetPanel = ({ onInsert }) => {
 };
 
 export default SnippetPanel;
-

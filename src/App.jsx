@@ -4,12 +4,14 @@ import {
   AfflictionBlock,
   AreaBlock,
   CreatureBlock,
+  CheckBlock,
   DeityBlock,
   FeatBlock,
   HazardBlock,
   ImageBlock,
   InventoryBlock,
   ItemBlock,
+  ListBlock,
   ReadAloudBox,
   SidebarBlock,
   SpellBlock,
@@ -75,10 +77,14 @@ const renderBlock = (block, idx) => {
       return <ReadAloudBox key={idx} title={block.title} text={block.text} />;
     case "sidebar":
       return <SidebarBlock key={idx} title={block.title} text={block.text} />;
-    case "table":
-      return <TableBlock key={idx} headers={block.headers} rows={block.rows} />;
-    default:
-      return null;
+	case "table":
+		return <TableBlock key={idx} headers={block.headers} rows={block.rows} />;
+	case "check":
+		return <CheckBlock key={idx} skill={block.skill} dc={block.dc} text={block.text} results={block.results} />;
+	case "list":
+		return <ListBlock key={idx} items={block.items} style={block.style} />;
+	default:
+		return null;
   }
 };
 

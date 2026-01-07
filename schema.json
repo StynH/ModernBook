@@ -33,7 +33,9 @@
                 { "$ref": "#/definitions/image" },
                 { "$ref": "#/definitions/box" },
                 { "$ref": "#/definitions/sidebar" },
-                { "$ref": "#/definitions/table" }
+                { "$ref": "#/definitions/table" },
+                { "$ref": "#/definitions/check" },
+                { "$ref": "#/definitions/list" }
               ]
             }
           }
@@ -493,6 +495,34 @@
         }
       },
       "required": ["type", "headers", "rows"]
+    },
+    "check": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "check" },
+        "skill": { "type": "string" },
+        "dc": { "type": "integer" },
+        "text": { "type": "string" },
+        "results": {
+          "type": "object",
+          "properties": {
+            "critical_success": { "type": "string" },
+            "success": { "type": "string" },
+            "failure": { "type": "string" },
+            "critical_failure": { "type": "string" }
+          }
+        }
+      },
+      "required": ["type", "skill", "dc"]
+    },
+    "list": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "list" },
+        "style": { "type": "string", "enum": ["unordered", "ordered"] },
+        "items": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["type", "items"]
     }
   }
 }

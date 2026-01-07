@@ -7,8 +7,8 @@ const ChapterSidebar = ({ chapters, activeChapterId, onSelect }) => (
         <Book className="w-6 h-6 text-white" />
       </div>
       <div className="hidden lg:block">
-        <h1 className="text-lg font-bold text-white tracking-tight">Architect <span className="text-blue-500">2e</span></h1>
-        <div className="text-[10px] font-medium text-slate-500 uppercase tracking-widest">Visual Engine v9.8</div>
+        <h1 className="text-lg font-bold text-white tracking-tight">Modern<span className="text-blue-500">Book</span></h1>
+        <div className="text-[10px] font-medium text-slate-500 uppercase tracking-widest">For Pathfinder 2e</div>
       </div>
     </div>
 
